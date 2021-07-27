@@ -1,0 +1,48 @@
+@startuml
+participant ":Circuito" as Circuito
+participant "bolita :Bolita" as Bolita
+participant ":PorTipo" as PorTipo
+participant ":Lisa" as Lisa
+participant "tubo1:Tubo" as Tubo1
+participant ":PorPeso" as PorPeso
+participant "tubo2:Tubo" as Tubo2
+participant ":Final" as Final
+
+title <font size=10>Lanzar bolita Liza por el circuito (Recorre PorTipo - Tubo - PorPeso - Tubo ) y termina satisfactoriamente el circuito </font>
+
+skinparam sequenceMessageAlign center
+autonumber
+
+[-> Circuito : lanzar(Bolita bolita)
+activate Circuito #FFBBBB
+Circuito -> PorTipo : lanzar(Bolita bolita)
+activate PorTipo #FFBBBB
+PorTipo -> Bolita : cumpleCriterioDesviacion(this)
+activate Bolita #FFBBBB
+Bolita -> PorTipo : cumpleCriterioParaDesviar(this.tipo)
+deactivate Bolita
+activate Lisa #FFBBBB
+PorTipo -> Lisa : igual(this.tipo)
+Lisa --> PorTipo : [true]
+deactivate Lisa 
+PorTipo -> Tubo1 : lanzar(Bolita bolita)
+activate Tubo1 #FFBBBB
+Tubo1 -> PorPeso : lanzar(Bolita bolita)
+deactivate Tubo1
+activate PorPeso #FFBBBB
+PorPeso -> Bolita : cumpleCriterioDesviacion(this)
+activate Bolita #FFBBBB
+Bolita -> PorPeso : cumpleCriterioParaDesviar(this.peso)
+deactivate Bolita
+PorPeso -> Tubo2 : lanzar(Bolita bolita)
+deactivate PorPeso
+activate Tubo2 #FFBBBB
+Tubo2 -> Final : lanzar(Bolita bolita)
+deactivate Tubo2 
+activate Final #FFBBBB
+Final -> Bolita : cambiarEstado(new Paso())
+deactivate Final
+activate Bolita #FFBBBB
+deactivate Bolita
+deactivate Circuito
+@enduml
