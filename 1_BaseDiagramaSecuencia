@@ -1,0 +1,16 @@
+@startuml
+skinparam sequenceMessageAlign center
+title <font size=12>Paquete superveloz, distancia 150km, envoltorio antinuclear y de regalo</font>
+
+participant ":Paquete" as Paquete
+boundary "Envoltorio" as Envoltorio
+
+[-> Paquete : calcularPrecioEnvio()
+
+activate Paquete #FFBBBB
+
+
+
+Paquete -->[
+deactivate Paquete
+@enduml
