@@ -1,0 +1,40 @@
+@startuml
+class Sube{
+- saldo : int
+
++ pagar(int Monto) : void
+}
+class Usuario{
+- cumpleanio : Cumpleanio
+
++ esCumpleanios() : boolean
+}
+
+interface Pago{
++pagar (monto : int, saldo : int) : int
+}
+class TarifaSocial{
+- montoPermitido : int
+
++pagar (monto : int, saldo : int) : int
+
+}
+
+class TarifaNormal {
++pagar (monto : int, saldo : int) : int
+}
+interface Descuento{
++ aplicarDescuento(monto : int, cliente : Usuario) : int
+}
+class Cumpleanio{
++ aplicarDescuento(monto : int, cliente : Usuario) : int
+}
+
+Sube "1" o-- "1" Pago : estrategia
+Sube "1" o-- "*" Descuento : descuentos
+Sube "1" o-- "1" Usuario : usuario
+
+Descuento <|.. Cumpleanio 
+Pago <|.. TarifaSocial 
+Pago <|.. TarifaNormal
+@enduml
