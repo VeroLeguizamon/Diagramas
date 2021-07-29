@@ -1,0 +1,39 @@
+@startuml
+skinparam sequenceMessageAlign center
+title <font size=12>Persona con saldo 120 hace un viaje con costo 40 en el día de su cumpleaños. Sin tarifa social.</font>
+
+participant ":Sube" as Sube
+participant ":Cumpleanio" as Cumpleanio
+participant ":Usuario" as Usuario
+participant ":TarifaNormal" as TarifaNormal
+
+[-> Sube : pagar(120)
+
+activate Sube #FFBBBB
+
+Sube -> Cumpleanio : aplicarDescuento(120, this.usuario : Usuario)
+
+activate Cumpleanio #FFBBBB
+Cumpleanio ->  Usuario : esCumpleanio() 
+activate Usuario #FFBBBB
+Usuario --> Cumpleanio : [true]
+deactivate Usuario
+Cumpleanio --> Sube : [60]
+deactivate Cumpleanio
+
+Sube -> TarifaNormal : pagar(60, 50)
+
+activate TarifaNormal #FFBBBB
+
+create SinSaldoExcepcion 
+
+TarifaNormal -> SinSaldoExcepcion : new
+SinSaldoExcepcion --> TarifaNormal 
+
+TarifaNormal --> Sube 
+
+deactivate TarifaNormal
+
+Sube -->[
+deactivate Sube
+@enduml
